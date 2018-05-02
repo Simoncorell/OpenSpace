@@ -22,7 +22,7 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                                         *
  ****************************************************************************************/
 
-#include <modules/volume/transferfunctionproperty.h>
+#include <modules/volume/transferfunction/transferfunctionproperty.h>
 
 #include <ghoul/lua/ghoul_lua.h>
 

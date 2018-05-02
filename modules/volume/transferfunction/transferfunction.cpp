@@ -22,7 +22,7 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                                         *
  ****************************************************************************************/
 
-#include <modules/volume/transferfunction.h>
+#include <modules/volume/transferfunction/transferfunction.h>
 
 #include <ghoul/misc/dictionary.h>
 #include <ext/json/json.hpp>
@@ -46,9 +46,13 @@ TransferFunction::TransferFunction(std::string s) {
     setEnvelopesFromString(s);
 }
 
-TransferFunction::TransferFunction(const TransferFunction& tf) : _envelopes(tf._envelopes), _loadableFilePath(tf._loadableFilePath) { }
+TransferFunction::TransferFunction(const TransferFunction& tf) 
+    : _envelopes(tf._envelopes), 
+      _loadableFilePath(tf._loadableFilePath) {}
 
-TransferFunction::TransferFunction(TransferFunction&& tf) : _envelopes(std::move(tf._envelopes)), _loadableFilePath(std::move(tf._loadableFilePath)) { }
+TransferFunction::TransferFunction(TransferFunction&& tf) 
+    : _envelopes(std::move(tf._envelopes)), 
+      _loadableFilePath(std::move(tf._loadableFilePath)) {}
 
 TransferFunction& TransferFunction::operator=(const TransferFunction& tf) {
     _envelopes = tf._envelopes;
@@ -78,6 +82,7 @@ bool TransferFunction::setEnvelopesFromString(std::string s) {
     }
     return true;
 }
+
 //TODO, implement this
 bool TransferFunction::setEnvelopesFromLua(lua_State* state) {
     bool success = (lua_istable(state, -1) == 1);
@@ -137,7 +142,7 @@ void TransferFunction::loadEnvelopesFromFile(const std::string& path) {
             ghoul::Dictionary envelopeDictionary = transferfunctionDictionary.value<ghoul::Dictionary>(envelopeKey);
             std::vector<std::string> pointKeys = envelopeDictionary.keys();
             Envelope env;
-            std::vector < EnvelopePoint> tmpVec;
+            std::vector <EnvelopePoint> tmpVec;
             for (auto pointKey : pointKeys) {
                 ghoul::Dictionary pointDictionary = envelopeDictionary.value<ghoul::Dictionary>(pointKey);
                 std::string color = pointDictionary.value<std::string>("color");

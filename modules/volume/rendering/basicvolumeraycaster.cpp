@@ -131,7 +131,7 @@ void BasicVolumeRaycaster::preRaycast(
     // TODO use volume package tf representation
     // debug core package texture
     // _transferFunctionHandler->getTexture().bind();
-    _transferFunctionHandler->getTransferFunction()->bind();
+    // _transferFunctionHandler->getTransferFunction()->bind();
     // LINFOC("PRERAYCAST", "hello");
 
     program.setUniform("transferFunction_" + id, _tfUnit->unitNumber());

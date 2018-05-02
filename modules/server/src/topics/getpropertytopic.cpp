@@ -32,7 +32,7 @@
 #include <openspace/rendering/screenspacerenderable.h>
 #include <openspace/scene/scene.h>
 #include <modules/server/include/getpropertytopic.h>
-#include <modules/volume/transferfunctionhandler.h>
+#include <modules/volume/transferfunction/transferfunctionhandler.h>
 
 using nlohmann::json;
 

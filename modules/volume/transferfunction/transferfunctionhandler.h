@@ -34,8 +34,8 @@
 #include <openspace/properties/binaryproperty.h>
 #include <openspace/properties/scalarproperty.h>
 #include <openspace/util/histogram.h>
-#include <modules/volume/transferfunctionproperty.h>
-#include <modules/volume/transferfunction.h>
+#include <modules/volume/transferfunction/transferfunctionproperty.h>
+#include <modules/volume/transferfunction/transferfunction.h>
 #include <openspace/rendering/transferfunction.h>
 
 #include <vector>

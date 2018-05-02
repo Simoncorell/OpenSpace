@@ -34,7 +34,7 @@
 
 #include <openspace/rendering/volumeraycaster.h>
 #include <openspace/util/boxgeometry.h>
-#include <modules/volume/transferfunctionhandler.h>
+#include <modules/volume/transferfunction/transferfunctionhandler.h>
 #include <modules/volume/rendering/volumeclipplanes.h>
 
 #include <modules/volume/volumegridtype.h>

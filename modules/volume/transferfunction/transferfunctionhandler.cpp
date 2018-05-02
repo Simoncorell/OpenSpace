@@ -22,7 +22,7 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                                         *
  ****************************************************************************************/
 
-#include <modules/volume/transferfunctionhandler.h>
+#include <modules/volume/transferfunction/transferfunctionhandler.h>
 #include <ghoul/misc/dictionary.h>
 #include <ghoul/logging/logmanager.h>
 #include <openspace/properties/scalarproperty.h>

@@ -235,6 +235,7 @@ void RenderableTimeVaryingVolume::initializeGL() {
         }
         if (extension == "tf") {
             _transferFunctionHandler->setFilepath(path);
+            // _transferFunctionHandler->initialize();
         }
     }
 

@@ -30,7 +30,7 @@
 #include <openspace/properties/stringproperty.h>
 #include <openspace/util/boxgeometry.h>
 #include <openspace/rendering/renderable.h>
-#include <modules/volume/transferfunctionhandler.h>
+#include <modules/volume/transferfunction/transferfunctionhandler.h>
 #include <modules/kameleon/include/kameleonwrapper.h>
 #include <modules/volume/rawvolume.h>
 #include <modules/volume/rendering/basicvolumeraycaster.h>

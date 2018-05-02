@@ -30,7 +30,7 @@
 #include <modules/volume/rawvolume.h>
 #include <modules/volume/rendering/basicvolumeraycaster.h>
 #include <modules/volume/rendering/volumeclipplanes.h>
-#include <modules/volume/transferfunctionhandler.h>
+#include <modules/volume/transferfunction/transferfunctionhandler.h>
 
 
 #include <openspace/properties/vectorproperty.h>

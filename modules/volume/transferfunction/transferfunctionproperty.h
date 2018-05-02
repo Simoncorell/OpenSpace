@@ -26,7 +26,7 @@
 #define __OPENSPACE_MODULE_VOLUME___TRANSFERFUNCTIONPROPERTY___H__
 
 #include <openspace/properties/templateproperty.h>
-#include <modules/volume/transferfunction.h>
+#include <modules/volume/transferfunction/transferfunction.h>
 
 namespace openspace::properties {
 
