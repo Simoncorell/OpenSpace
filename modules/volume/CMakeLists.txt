@@ -37,6 +37,8 @@ set(HEADER_FILES
     ${CMAKE_CURRENT_SOURCE_DIR}/transferfunction/transferfunction.h
     ${CMAKE_CURRENT_SOURCE_DIR}/transferfunction/transferfunctionhandler.h
     ${CMAKE_CURRENT_SOURCE_DIR}/transferfunction/transferfunctionproperty.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/transferfunction/coretransferfunctionhandler.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/transferfunction/volumetransferfunctionhandler.h
     ${CMAKE_CURRENT_SOURCE_DIR}/lrucache.h
     ${CMAKE_CURRENT_SOURCE_DIR}/linearlrucache.h
     ${CMAKE_CURRENT_SOURCE_DIR}/volumegridtype.h
@@ -57,8 +59,8 @@ set(SOURCE_FILES
     ${CMAKE_CURRENT_SOURCE_DIR}/rawvolumewriter.inl
     ${CMAKE_CURRENT_SOURCE_DIR}/textureslicevolumereader.inl
     ${CMAKE_CURRENT_SOURCE_DIR}/transferfunction/transferfunction.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/transferfunction/transferfunctionhandler.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/transferfunction/transferfunctionproperty.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/transferfunction/volumetransferfunctionhandler.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/volumesampler.inl
     ${CMAKE_CURRENT_SOURCE_DIR}/volumegridtype.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/volumeutils.cpp
@@ -68,6 +70,8 @@ set(SOURCE_FILES
     ${CMAKE_CURRENT_SOURCE_DIR}/rendering/volumeclipplanes.cpp
 )
 source_group("Source Files" FILES ${SOURCE_FILES})
+
+option(OPENSPACE_MODULE_VOLUME_USE_CORE_TF "Use the core implementation of transfer function" ON)
 
 create_new_module(
     "Volume"

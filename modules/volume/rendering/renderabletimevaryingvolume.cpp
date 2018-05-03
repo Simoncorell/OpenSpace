@@ -178,9 +178,13 @@ RenderableTimeVaryingVolume::RenderableTimeVaryingVolume(
     );
 
     _sourceDirectory = absPath(dictionary.value<std::string>(KeySourceDirectory));
-    _transferFunctionPath = absPath(dictionary.value<std::string>(KeyTransferFunction));
-    _transferFunctionHandler = std::make_shared<TransferFunctionHandler>(_transferFunctionPath);
 
+#ifdef OPENSPACE_MODULE_VOLUME_USE_CORE_TF
+    _transferFunctionHandler = std::make_shared<CoreTransferFunctionHandler>();
+#else
+    _transferFunctionPath = absPath(dictionary.value<std::string>(KeyTransferFunction));
+    _transferFunctionHandler = std::make_shared<VolumeTransferFunctionHandler>(_transferFunctionPath);
+#endif
 
     _gridType.addOptions({
         { static_cast<int>(volume::VolumeGridType::Cartesian), "Cartesian grid" },
@@ -457,9 +461,13 @@ void RenderableTimeVaryingVolume::update(const UpdateData&) {
                 );
             }
             _raycaster->setVolumeTexture(t->texture);
+#ifdef OPENSPACE_MODULE_VOLUME_USE_CORE_TF
+            _transferFunctionHandler->update();
+#else
             _transferFunctionHandler->setUnit(t->unit);
             _transferFunctionHandler->setMinAndMaxValue(t->minValue, t->maxValue);
             _transferFunctionHandler->setHistogramProperty(t->histogram);
+#endif
         } else {
             _raycaster->setVolumeTexture(nullptr);
         }

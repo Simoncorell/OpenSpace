@@ -22,51 +22,70 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                                         *
  ****************************************************************************************/
 
-#ifndef __OPENSPACE_MODULE_VOLUME___TRANSFERFUNCTIONHANDLER___H__
-#define __OPENSPACE_MODULE_VOLUME___TRANSFERFUNCTIONHANDLER___H__
+#ifndef __OPENSPACE_MODULE_VOLUME___CORETRANSFERFUNCTIONHANDLER___H__
+#define __OPENSPACE_MODULE_VOLUME___CORETRANSFERFUNCTIONHANDLER___H__
 
-#include <functional>
-#include <ghoul/opengl/texture.h>
-#include <ghoul/glm.h>
-// #include <modules/volume/transferfunction/transferfunctionproperty.h>
-
-#include <vector>
-#include <memory>
+#include <modules/volume/transferfunction/transferfunctionhandler.h>
+#include <openspace/rendering/transferfunction.h>
+// #include <ghoul/opengl/texture.h>
 
 namespace openspace::volume {
 
-class Envelope;
-
-class TransferFunctionHandler : public properties::PropertyOwner {
+/**
+ * Handler class for managing a transfer function for a
+ * renderable volume that uses the implementation of a
+ * transfer function from the core package.
+ * 
+ * This class is basically just an adapter for that class so 
+ * that this and the counterpart VolumeTransferFunctionHandler 
+ * are interchangeable. VolumeTransferFunctionHandler works 
+ * with a different implementation of the transfer function
+ * that makes use of things necesary for the new GUI.
+ * 
+ * Refactor away this sub class once the counterpart is 
+ * fully implemented.
+ */
+class CoreTransferFunctionHandler : public TransferFunctionHandler {
 public:
-    TransferFunctionHandler(const properties::StringProperty& prop)
-        : properties::PropertyOwner({ "TransferFunctionHandler" })
+    CoreTransferFunctionHandler(const std::string& filepath)
+        : TransferFunctionHandler(nullptr), // wont work
+        _transferFunction(std::make_shared<openspace::TransferFunction>(filePath))
     {}
 
-    virtual void initialize() = 0;
-    // void initialize();
+    void initialize() {
+      _transferFunction->updateTexture();
+    }
 
-    virtual void setFilepath(const std::string& path) = 0;
+    void setFilepath(const std::string& path) {
+        _transferFunction->setPath(path);
+    }
 
-    virtual void setTexture() = 0; // do we need this
+    void setTexture(); // ?
+
     // void uploadTexture();
-    virtual bool hasTexture() = 0;
 
-    virtual ghoul::opengl::Texture& getTexture() = 0;
+    bool hasTexture() {
+        return _transferFunction->getTexture() != nullptr;
+    }
 
-    // how to give different types
-    // virtual auto getTransferFunction() = 0;
-    // virtual void getTransferFunction(pointer&) = 0;
-    // bind() or bindTexture or bindTransferfunction?
-    // std::shared_ptr<openspace::TransferFunction> getTransferFunction();
+    ghoul::opengl::Texture& getTexture() {
+        return _transferFunction->getTexture();
+    }
+
+    // to be implemented
+    // put in base class?
+    void update() {
+        _transferFunction->updateTexture();
+    }
+
+    void bind() {
+        _transferFunction->bind();
+    }
 
 private:
-    std::shared_ptr<ghoul::opengl::Texture> _texture = nullptr;
+    std::shared_ptr<openspace::TransferFunction> _transferFunction;
+}
 
-protected:
-    std::string _filePath;
-};
+} // namespace openspace::volume
 
-} //namespace openspace::volume
-
-#endif // __OPENSPACE_MODULE_VOLUME___TRANSFERFUNCTIONHANDLER___H__
+#endif // __OPENSPACE_MODULE_VOLUME___CORETRANSFERFUNCTIONHANDLER___H__
