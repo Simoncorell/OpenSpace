@@ -115,12 +115,12 @@ documentation::Documentation RenderableSphere::Documentation() {
                 Optional::No,
                 SegmentsInfo.description
             },
-            {
-                TextureInfo.identifier,
-                new StringVerifier,
-                Optional::No,
-                TextureInfo.description
-            },
+            // {
+            //     TextureInfo.identifier,
+            //     new StringVerifier,
+            //     Optional::No,
+            //     TextureInfo.description
+            // },
             {
                 OrientationInfo.identifier,
                 new StringInListVerifier({ "Inside", "Outside", "Inside/Outside" }),
@@ -150,9 +150,10 @@ documentation::Documentation RenderableSphere::Documentation() {
 }
 
 
-RenderableSphere::RenderableSphere(const ghoul::Dictionary& dictionary)
+RenderableSphere::RenderableSphere(const ghoul::Dictionary& dictionary,
+    std::shared_ptr<ghoul::opengl::Texture> texture)
     : Renderable(dictionary)
-    , _texturePath(TextureInfo)
+    // , _texturePath(TextureInfo)
     , _orientation(OrientationInfo, properties::OptionProperty::DisplayType::Dropdown)
     , _size(SizeInfo, 1.f, 0.f, 1e35f)
     , _segments(SegmentsInfo, 8, 4, 1000)
@@ -160,7 +161,7 @@ RenderableSphere::RenderableSphere(const ghoul::Dictionary& dictionary)
     , _fadeOutThreshold(-1.0)
     , _fadeInThreshold(0.0)
     , _shader(nullptr)
-    , _texture(nullptr)
+    , _texture(texture)
     , _sphere(nullptr)
     , _sphereIsDirty(false)
 {
@@ -175,7 +176,7 @@ RenderableSphere::RenderableSphere(const ghoul::Dictionary& dictionary)
 
     _size = static_cast<float>(dictionary.value<double>(SizeInfo.identifier));
     _segments = static_cast<int>(dictionary.value<double>(SegmentsInfo.identifier));
-    _texturePath = absPath(dictionary.value<std::string>(TextureInfo.identifier));
+    // _texturePath = absPath(dictionary.value<std::string>(TextureInfo.identifier));
 
     _orientation.addOptions({
         { Outside, "Outside" },
@@ -209,8 +210,8 @@ RenderableSphere::RenderableSphere(const ghoul::Dictionary& dictionary)
     addProperty(_segments);
     _segments.onChange([this](){ _sphereIsDirty = true; });
 
-    addProperty(_texturePath);
-    _texturePath.onChange([this]() { loadTexture(); });
+    // addProperty(_texturePath);
+    // _texturePath.onChange([this]() { loadTexture(); });
 
     if (dictionary.hasKey(FadeOutThreshouldInfo.identifier)) {
         _fadeOutThreshold = static_cast<float>(

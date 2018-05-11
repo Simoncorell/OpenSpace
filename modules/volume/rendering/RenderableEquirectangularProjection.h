@@ -22,71 +22,29 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                                         *
  ****************************************************************************************/
 
-#ifndef __OPENSPACE_MODULE_BASE___RENDERABLESPHERE___H__
-#define __OPENSPACE_MODULE_BASE___RENDERABLESPHERE___H__
+#ifndef __OPENSPACE_MODULE_VOLUME___RENDERABLEEQUIRECTANGULARPROJECTION___H__
+#define __OPENSPACE_MODULE_VOLUME___RENDERABLEEQUIRECTANGULARPROJECTION___H__
 
-#include <openspace/rendering/renderable.h>
+// #include <openspace/rendering/renderable.h>
+// #include <modules/base/rendering/renderablesphere.h>
+// 
+// namespace openspace::volume {
+// 
+// class RenderableEquirectangularProjection : public Renderable {
+// public:
+//     RenderableEquirectangularProjection(const ghoul::Dictionary& dictionary);
+//     ~RenderableEquirectangularProjection();
+// 
+//     void initializeGL() override;
+//     void deinitializeGL() override;
+//     bool isReady() const override;
+//     void update(const RenderData& data, RendererTasks& tasks) override;
+// 
+// private:
+//   RenderableTimeVaryingVolume _timeVaryingVolume;
+// 
+// }
+// 
+// } // namespace openspace::volume
 
-#include <openspace/properties/stringproperty.h>
-#include <openspace/properties/optionproperty.h>
-#include <openspace/properties/scalar/intproperty.h>
-#include <openspace/properties/scalar/floatproperty.h>
-#include <ghoul/opengl/uniformcache.h>
-
-namespace ghoul::opengl {
-    class ProgramObject;
-    class Texture;
-} // namespace ghoul::opengl
-
-namespace openspace {
-
-class PowerScaledSphere;
-struct RenderData;
-struct UpdateData;
-
-namespace documentation { struct Documentation; }
-
-class RenderableSphere : public Renderable {
-public:
-    RenderableSphere(const ghoul::Dictionary& dictionary);
-
-    void initializeGL() override;
-    void deinitializeGL() override;
-
-    bool isReady() const override;
-
-    void render(const RenderData& data, RendererTasks& rendererTask) override;
-    void update(const UpdateData& data) override;
-
-    // void setTexture(std::shared_ptr<ghoul::opengl::Texture> texture));
-
-    static documentation::Documentation Documentation();
-
-private:
-    void loadTexture();
-
-    // properties::StringProperty _texturePath;
-    properties::OptionProperty _orientation;
-
-    properties::FloatProperty _size;
-    properties::IntProperty _segments;
-
-    properties::BoolProperty _disableFadeInDistance;
-
-    float _fadeOutThreshold;
-    float _fadeInThreshold;
-
-    ghoul::opengl::ProgramObject* _shader;
-    std::unique_ptr<ghoul::opengl::Texture> _texture;
-
-    std::unique_ptr<PowerScaledSphere> _sphere;
-
-    UniformCache(opacity, viewProjection, modelTransform, texture) _uniformCache;
-
-
-    bool _sphereIsDirty;
-};
-
-} // namespace openspace
-
-#endif // __OPENSPACE_MODULE_BASE___RENDERABLESPHERE___H__
+#endif // __OPENSPACE_MODULE_VOLUME___RENDERABLEEQUIRECTANGULARPROJECTION___H__
